@@ -7,7 +7,7 @@ const {
   BadRequest,
   UnprocessableEntity,
 } = require("../../constants/errors");
-const v = require("../../config").prefix;
+// const v = require("../../config").prefix;
 const { app } = require("../../app");
 const { errorsHandler } = require("./index");
 const JwtService = require("../../services/jwt.service");
