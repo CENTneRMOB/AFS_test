@@ -1,3 +1,5 @@
+const { drizzle } = require("drizzle-orm/node-postgres");
+const { Client } = require("pg");
 const dbsConfig = require("../config").dbs;
 const logger = require("./logger.service")(module);
 
@@ -25,7 +27,10 @@ class Database {
    */
   async connect() {
     try {
-      // todo: метод установки соединения с БД
+      const client = new Client({ connectionString: this.#uri });
+      await client.connect();
+      this.#connection = client;
+
       logger.info(`Connected to ${this.#id}`);
     } catch (error) {
       logger.error(`Unable to connect to ${this.#id}:`, error.message);
@@ -39,7 +44,8 @@ class Database {
   async disconnect() {
     if (this.#connection) {
       try {
-        // todo: метод закрытия соединения с БД
+        await this.#connection.end();
+
         logger.info(`Disconnected from ${this.#id}`);
       } catch (error) {
         logger.error(`Unable to disconnect from ${this.#id}:`, error.message);
@@ -53,6 +59,14 @@ class Database {
    */
   get connection() {
     return this.#connection;
+  }
+
+  /**
+   * Возвращает инстанс db для работы с ней,
+   * @return {Object}
+   */
+  get db() {
+    return drizzle(this.#connection);
   }
 }
 

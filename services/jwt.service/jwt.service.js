@@ -21,10 +21,10 @@ class JwtService {
    * @return {EncodedAndSignedToken}
    */
   encode(user) {
-    logger.info(`Encode API JWT token for user: ${user.id}`);
+    logger.info(`Encode API JWT token for user: ${user.login}`);
     const token = new EncodedAndSignedToken(this.#config, {
       pld: user,
-      sub: user.id,
+      sub: user.login,
     });
     logger.success();
     return token;
