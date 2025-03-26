@@ -15,9 +15,9 @@ config.env.test = process.env.NODE_ENV === "test";
 // DB SETTINGS
 config.dbs = {};
 config.dbs.sample_db = {};
-config.dbs.sample_db.uri = "mongodb://user:password@db_host";
-config.dbs.sample_db.database = "db_name";
-config.dbs.sample_db.id = "sample_db";
+config.dbs.sample_db.uri = "postgresql://postgres:pxtm0222@localhost:5123/afs";
+config.dbs.sample_db.database = "afs";
+config.dbs.sample_db.id = "afs_db";
 
 // LOG SETTINGS
 config.log = {};
@@ -45,7 +45,7 @@ config.cors.exposedHeaders = ["X-Total-Count", "Content-Type", "Authorization"];
 
 // JWT SERVICE SETTINGS
 config.jwt = {};
-config.jwt.secretKey = "";
+config.jwt.secretKey = "very-long-and-secure-secret-key";
 config.jwt.sign = {};
 config.jwt.sign.issuer = "Test API js backend";
 config.jwt.sign.audience = "";
