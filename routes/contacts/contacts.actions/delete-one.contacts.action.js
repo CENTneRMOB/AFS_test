@@ -4,14 +4,14 @@ const contactMethods = require("../../../DB/sample-db/methods/contact");
 const { NotFound } = require("../../../constants/errors");
 
 /**
- * GET /contacts/:id
- * Эндпоинт получения данных контакта.
+ * DELETE /contacts/:id
+ * Эндпоинт удаления контакта.
  * @param {Object} req
  * @param {Object} res
  * @return {Promise<void>}
  */
-async function getOne(req, res) {
-  logger.init("get contact");
+async function deleteOne(req, res) {
+  logger.init("delete contact");
   const { id } = req.params;
 
   const contact = await contactMethods.getOne(Number(id));
@@ -19,10 +19,12 @@ async function getOne(req, res) {
     throw new NotFound("Contact not found");
   }
 
-  res.status(OK).json(contact);
+  const deletedContact = await contactMethods.deleteOne(Number(id));
+
+  res.status(OK).json(deletedContact);
   logger.success();
 }
 
 module.exports = {
-  getOne,
+  deleteOne,
 };

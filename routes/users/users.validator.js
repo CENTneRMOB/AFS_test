@@ -1,19 +1,25 @@
-const { check } = require("express-validator");
+const { body } = require("express-validator");
 const { UnprocessableEntity } = require("../../constants/errors");
 const validate = require("../../middleware/validation.middleware");
 
 const getAuth = [
-  check("user")
+  body()
     .notEmpty()
     .withMessage({
       code: UnprocessableEntity,
-      message: "user: parameter is required",
+      message: "user object is required",
     })
     .bail()
-    .custom((value) => value.id)
+    .custom((value) => value.login)
     .withMessage({
       code: UnprocessableEntity,
-      message: "user.id: parameter is required",
+      message: "login: parameter is required",
+    })
+    .bail()
+    .custom((value) => value.password)
+    .withMessage({
+      code: UnprocessableEntity,
+      message: "password: parameter is required",
     }),
   validate,
 ];

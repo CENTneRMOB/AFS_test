@@ -15,4 +15,19 @@ function parseOne(item, photoUrl) {
   };
 }
 
-module.exports = { parseOne };
+/**
+ * Обрабатывает данные компаний и возвращает результат.
+ * @param {Object} items
+ * @param {string} photoUrl
+ * @return {Object}
+ */
+function parseMany(items, photoUrl) {
+  const { count, companies } = items;
+
+  return {
+    count,
+    companies: companies.map((company) => parseOne(company, photoUrl)),
+  };
+}
+
+module.exports = { parseOne, parseMany };

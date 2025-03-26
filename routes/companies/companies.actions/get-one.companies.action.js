@@ -16,7 +16,7 @@ async function getOne(req, res) {
   logger.init("get company");
   const { id } = req.params;
 
-  const company = companyMethods.getOne(id);
+  const company = await companyMethods.getOne(id);
   if (!company) {
     throw new NotFound("Company not found");
   }
